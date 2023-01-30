@@ -1,0 +1,28 @@
+version: '3'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+      - xpack.security.transport.ssl.enabled=false
+      - xpack.security.enabled=false
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - bootstrap.memory_lock=true
+      - xpack.license.self_generated.type=${LICENSE}
+      - ES_JAVA_OPTS=${ES_JAVA_OPTS}
+    networks:
+      - elk-network
+    volumes:
+      - ./.store/elasticsearch/data:/usr/share/elasticsearch/data
+    mem_limit: ${MEM_LIMIT}
+    healthcheck:
+      test: [ "CMD-SHELL", "curl http://localhost:9200" ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+networks:
+  elk-network:
+    driver: bridge
