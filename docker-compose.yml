@@ -23,6 +23,22 @@ services:
       interval: 10s
       timeout: 10s
       retries: 120
+  kibana:
+    image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
+    ports:
+      - 5601:5601
+    environment:
+      - SERVER_NAME=kibana
+      - SERVER_PUBLICBASEURL=http://localhost:5601
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    networks:
+      - elk-network
+    volumes:
+      - ./.store/kibana:/usr/share/kibana/data
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    mem_limit: ${MEM_LIMIT}
 networks:
   elk-network:
     driver: bridge

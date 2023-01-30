@@ -7,7 +7,8 @@ It creates a ELK Stack using Docker to mining texts.
 - [Makefile](https://pt.wikibooks.org/wiki/Programar_em_C/Makefiles)
 
 # Using
-- Logstash image **v8.6**
+- Logstash image **v8.6** ([documentation](https://www.elastic.co/guide/en/elasticsearch/reference/8.6/install-elasticsearch.html))
+- Kibana image **v8.6** ([documentation](https://www.elastic.co/guide/en/kibana/8.6/install.html))
 
 # Commands
 
