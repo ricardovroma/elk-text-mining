@@ -63,6 +63,15 @@ services:
         condition: service_healthy
     networks:
       - elk-network
+  filebeats:
+    image: docker.elastic.co/beats/filebeat:8.6.1
+    environment:
+      - output.logstash.hosts=["logstash:5044"]
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - elk-network
 networks:
   elk-network:
     driver: bridge
