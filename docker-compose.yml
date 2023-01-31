@@ -39,6 +39,29 @@ services:
       elasticsearch:
         condition: service_healthy
     mem_limit: ${MEM_LIMIT}
+  logstash:
+    image: docker.elastic.co/logstash/logstash:${STACK_VERSION}
+    ports:
+      - 5044:5044
+    environment:
+      - xpack.monitoring.enabled=true
+    networks:
+      - elk-network
+    volumes:
+      - ./.store/logstash:/usr/share/logstash/data
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+  metricbeats:
+    image: docker.elastic.co/beats/metricbeat:8.6.1
+    environment:
+      - output.logstash.hosts=["logstash:5044"]
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - elk-network
 networks:
   elk-network:
     driver: bridge
