@@ -41,11 +41,12 @@ services:
         condition: service_healthy
     mem_limit: ${MEM_LIMIT}
   logstash:
-    image: docker.elastic.co/logstash/logstash:${STACK_VERSION}
+    build: ./logstash
     ports:
       - 5044:5044
     environment:
       - xpack.monitoring.enabled=true
+      - modu;es=["rss"]
     networks:
       - elk-network
     volumes:
