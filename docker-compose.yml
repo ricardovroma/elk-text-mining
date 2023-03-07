@@ -46,7 +46,6 @@ services:
       - 5044:5044
     environment:
       - xpack.monitoring.enabled=true
-      - modu;es=["rss"]
     networks:
       - elk-network
     volumes:
