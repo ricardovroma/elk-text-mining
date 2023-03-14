@@ -12,5 +12,5 @@ cleanup:
 	@rm -r ${STORE}
 
 run:
-	@${PODMANAGER} compose down
-	@${PODMANAGER} compose up
+	@${PODMANAGER} compose down --remove-orphans
+	@${PODMANAGER} compose up --build

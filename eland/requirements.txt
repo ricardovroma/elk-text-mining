@@ -1,4 +1,5 @@
 eland
 pandas
 numpy
-sklearn
+scikit-learn
+elasticsearch[async]
